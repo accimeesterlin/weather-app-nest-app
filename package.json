@@ -1,0 +1,25 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"npm run start:nest-app\"",
+    "dev": "concurrently \"npm run dev:nest-app\" \"npm run start:client\"",
+    "start:nest-app": "concurrently \"cd nest-app && npm run start:prod\"",
+    "dev:nest-app": "concurrently \"cd nest-app && npm run start:dev\"",
+    "build:nest-app": "concurrently \"cd nest-app && npm install && npm run build\"",
+    "start:client": "concurrently \"cd client && npm run start\"",
+    "build:client": "concurrently \"cd client && npm install && npm run build\"",
+    "build": "concurrently \"npm run build:nest-app\" \"npm run build:client\""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^8.0.0",
+    "ts-loader": "^9.0.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.0.0"
+  }
+}
