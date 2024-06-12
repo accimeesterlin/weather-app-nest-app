@@ -10,6 +10,7 @@ import {
 import { IWeatherData } from "@/types/weather-type";
 import { WeatherDetailsModal } from "@/WeatherDetailsModal";
 import { WeeklyStats } from "@/WeeklyStats";
+import { capitalizeWord } from "./utils/formatUtils";
 
 type IProps = {
   weather: IWeatherData;
@@ -34,7 +35,7 @@ export function WeatherDetail({ weather }: IProps) {
     <Card className="mt-[12px]">
       <CardHeader>
         <CardTitle>{weather.name}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardDescription>{capitalizeWord(description)}</CardDescription>
       </CardHeader>
       <CardContent className="flex justify-between">
         <DisplayCoordinates weather={weather} />
