@@ -53,6 +53,10 @@ export function WeatherDetail({ weather }: IProps) {
 }
 
 export const LineItem = ({ label, value }: { label: string; value: any }) => {
+  if (!value) {
+    return null;
+  }
+
   return (
     <div>
       <p>
