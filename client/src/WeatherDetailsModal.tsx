@@ -17,12 +17,20 @@ import {
   DisplayWeather,
   DisplayWind,
 } from "@/WeatherDetail";
+import { capitalizeWord } from "./utils/formatUtils";
 
 type IProps = {
   weather: IWeatherData;
 };
 
 export function WeatherDetailsModal({ weather }: IProps) {
+  let description: string = "";
+
+  if (weather.weather.length > 0) {
+    const weatherInfo = weather.weather;
+    description = weatherInfo[0].description || "";
+  }
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -32,7 +40,8 @@ export function WeatherDetailsModal({ weather }: IProps) {
         <SheetHeader>
           <SheetTitle>Weather Detail</SheetTitle>
           <SheetDescription>
-            More details about the weather in {weather.name}
+            <p>More details about the weather in {weather.name}</p>
+            <p>{capitalizeWord(description)}</p>
           </SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
