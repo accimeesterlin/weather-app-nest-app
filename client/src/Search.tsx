@@ -20,6 +20,8 @@ import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { IWeatherData } from "@/types/weather-type";
 
+const baseUrl = process.env.REACT_APP_OPEN_WEATHER_BASE_URL;
+
 const FormSchema = z.object({
   query: z.string().min(2, {
     message: "Query must be at least 2 characters.",
@@ -64,15 +66,11 @@ export function SearchForm({ weather, setWeather }: IProps) {
   // Search City
   const searchCity = async (city: string) => {
     try {
-      // TODO:
-      const { data } = await axios(
-        `${process.env.REACT_APP_OPEN_WEATHER_BASE_URL}/city`,
-        {
-          params: {
-            q: city,
-          },
-        }
-      );
+      const { data } = await axios(`${baseUrl}/api/v1/city`, {
+        params: {
+          q: city,
+        },
+      });
 
       setWeather(data);
     } catch (error) {

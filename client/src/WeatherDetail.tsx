@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   Card,
   CardContent,
@@ -16,11 +15,11 @@ type IProps = {
   weather: IWeatherData;
 };
 
-export function CardWithForm({ weather }: IProps) {
+export function WeatherDetail({ weather }: IProps) {
   // If the weather coord is empty, return null
-  // if (!weather.coord?.lat || !weather.coord?.lat) {
-  //   return null;
-  // }
+  if (!weather.coord?.lat || !weather.coord?.lat) {
+    return null;
+  }
 
   let description: string = "";
 
@@ -52,55 +51,64 @@ export function CardWithForm({ weather }: IProps) {
   );
 }
 
-const DisplayCoordinates = ({ weather }: IProps) => {
+export const LineItem = ({ label, value }: { label: string; value: any }) => {
   return (
     <div>
-      <p>Lat: {weather.coord.lat}</p>
-      <p>Long: {weather.coord.lon}</p>
+      <p>
+        <b>{label}:</b> {value}
+      </p>
     </div>
   );
 };
 
-const DisplayWeather = ({ weather }: IProps) => {
+export const DisplayCoordinates = ({ weather }: IProps) => {
   return (
     <div>
-      <p>Temp: {weather.main.temp}</p>
-      <p>Feels Like: {weather.main.feels_like}</p>
-      <p>Temp Min: {weather.main.temp_min}</p>
-      {/* <p>Temp Max: {weather.main.temp_max}</p> */}
-      {/* <p>Pressure: {weather.main.pressure}</p> */}
-      {/* <p>Humidity: {weather.main.humidity}</p> */}
+      <LineItem value={weather.coord.lat} label="Lat" />
+      <LineItem value={weather.coord.lon} label="Long" />
     </div>
   );
 };
 
-const DisplayWind = ({ weather }: IProps) => {
+export const DisplayWeather = ({ weather }: IProps) => {
+  // Other weather data
+  // temp_max, pressure, humidity
   return (
     <div>
-      <p>Wind Speed: {weather.wind.speed}</p>
-      <p>Wind Deg: {weather.wind.deg}</p>
-      <p>Wind Gust: {weather.wind.gust}</p>
+      <LineItem value={weather.main.temp} label="Temp" />
+      <LineItem value={weather.main.feels_like} label="Feels Like" />
+      <LineItem value={weather.main.temp} label="Temp Min" />
     </div>
   );
 };
 
-const DisplaySys = ({ weather }: IProps) => {
+export const DisplayWind = ({ weather }: IProps) => {
   return (
     <div>
-      <p>Country: {weather.sys.country}</p>
-      <p>Sunrise: {weather.sys.sunrise}</p>
-      <p>Sunset: {weather.sys.sunset}</p>
+      <LineItem value={weather.wind.speed} label="Wind Speed" />
+
+      <LineItem value={weather.wind.deg} label="Wind Deg" />
+      <LineItem value={weather.wind.gust} label="Wind Gust" />
     </div>
   );
 };
 
-const DisplayBaseInfo = ({ weather }: IProps) => {
+export const DisplaySys = ({ weather }: IProps) => {
   return (
     <div>
-      <p>Timezone: {weather.timezone}</p>
-      <p>ID: {weather.id}</p>
-      {/* <p>Name: {name}</p> */}
-      <p>Cod: {weather.cod}</p>
+      <LineItem value={weather.sys.country} label="Country" />
+      <LineItem value={weather.sys.sunrise} label="Sunrise" />
+      <LineItem value={weather.sys.sunset} label="Sunset" />
+    </div>
+  );
+};
+
+export const DisplayBaseInfo = ({ weather }: IProps) => {
+  return (
+    <div>
+      <LineItem value={weather.timezone} label="Timezone" />
+      <LineItem value={weather.id} label="ID" />
+      <LineItem value={weather.cod} label="Cod" />
     </div>
   );
 };

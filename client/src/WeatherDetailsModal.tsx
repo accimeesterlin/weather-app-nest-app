@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Sheet,
   SheetClose,
@@ -12,14 +10,19 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { IWeatherData } from "@/types/weather-type";
+import {
+  DisplayBaseInfo,
+  DisplayCoordinates,
+  DisplaySys,
+  DisplayWeather,
+  DisplayWind,
+} from "@/WeatherDetail";
 
 type IProps = {
   weather: IWeatherData;
 };
 
 export function WeatherDetailsModal({ weather }: IProps) {
-  console.log("Weather: ", weather);
-
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -27,28 +30,21 @@ export function WeatherDetailsModal({ weather }: IProps) {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
+          <SheetTitle>Weather Detail</SheetTitle>
           <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
+            More details about the weather in {weather.name}
           </SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" value="Pedro Duarte" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
-          </div>
+          <DisplayCoordinates weather={weather} />
+          <DisplayWeather weather={weather} />
+          <DisplayWind weather={weather} />
+          <DisplaySys weather={weather} />
+          <DisplayBaseInfo weather={weather} />
         </div>
         <SheetFooter>
           <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit">Close Modal</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

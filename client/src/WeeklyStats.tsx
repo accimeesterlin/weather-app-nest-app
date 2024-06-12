@@ -17,27 +17,24 @@ import { IWeatherData } from "@/types/weather-type";
 import { useEffect } from "react";
 import { getDailyForecast } from "@/utils/forecastUtils";
 
+const baseUrl = process.env.REACT_APP_OPEN_WEATHER_BASE_URL;
+
 type IProps = {
   lat: number;
   lon: number;
 };
 
 export function WeeklyStats({ lat, lon }: IProps) {
-  const [goal, setGoal] = React.useState(350);
   const [weatherList, setWeatherList] = React.useState<IWeatherData[]>([]);
 
   useEffect(() => {
     searchWeeklyWeather();
   }, []);
 
-  function onClick(adjustment: number) {
-    setGoal(Math.max(200, Math.min(400, goal + adjustment)));
-  }
-
   // Search City Forecast
   const searchWeeklyWeather = async () => {
     try {
-      const url = `${process.env.REACT_APP_OPEN_WEATHER_BASE_URL}/forecast`;
+      const url = `${baseUrl}/api/v1/forecast`;
 
       const params = {
         lat,

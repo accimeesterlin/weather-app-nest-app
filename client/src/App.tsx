@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 
-import { CardWithForm } from "@/WeatherDetail";
+import { WeatherDetail } from "@/WeatherDetail";
 import { SearchForm } from "@/Search";
 import { Separator } from "@/components/ui/separator";
 import { IWeatherData } from "@/types/weather-type";
@@ -27,8 +27,10 @@ function App() {
   return (
     <div className="App">
       <SearchForm weather={weather} setWeather={setWeather} />
-      <Separator className="mt-4 w-[350px]" />
-      <CardWithForm weather={weather} />
+      {(weather.coord?.lat || weather.coord?.lon) && (
+        <Separator className="mt-4" />
+      )}
+      <WeatherDetail weather={weather} />
     </div>
   );
 }
