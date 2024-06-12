@@ -6,6 +6,7 @@ import { ForecastController } from './forecast/forecast.controller';
 import { CoordController } from './coord/coord.controller';
 import { OpenweatherService } from './openweather/openweather.service';
 import { ConfigModule } from '@nestjs/config';
+import { LoggerService } from './logger/logger.service';
 
 @Module({
   imports: [
@@ -18,6 +19,6 @@ import { ConfigModule } from '@nestjs/config';
     }),
   ],
   controllers: [CityController, ForecastController, CoordController],
-  providers: [OpenweatherService],
+  providers: [OpenweatherService, LoggerService],
 })
 export class AppModule {}
